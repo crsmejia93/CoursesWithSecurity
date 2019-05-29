@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Form</title>
+</head>
+<body>
+<nav th:replace="base :: nav"></nav>
+<div>
+    <form th:action="@{/process}" th:object="${course}" method="post">
+        Instructor:
+        <select id="instructors" th:field="*{user}">
+            <option th:each="user: ${users}"
+                    th:value="${user.id}"
+                    th:inline="text">[[${user.firstname}]] [[${user.lastname}]]</option>
+        </select>
+        Title: <input type="text" th:field="*{title}"/>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span><br/>
+        Description: <textarea rows="3" th:field="*{description}"></textarea>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span><br/>
+        Credits: <input type="number" th:field="*{credits}">
+        <span th:if="${#fields.hasErrors('credits')}" th:errors="*{credits}"></span>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Courses</title>
+</head>
+<body>
+    <nav th:replace="base :: nav"></nav>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Instructor</th>
+            <th>Credits</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="course: ${courses}">
+            <td th:text="${course.title}"></td>
+            <td th:text="${course.user.lastName}"></td>
+            <td th:text="${course.credits}"></td>
+            <!--The action links -->
+            <td>
+                <a th:href="@{/detail/{id}(id=${course.id})}">Details</a>
+                <a sec:authorize="hasAuthority('INSTRUCTOR')" th:href="@{/update/{id}(id=${course.id})}">Update</a>
+                <a sec:authorize="hasAuthority('INSTRUCTOR')" th:href="@{/delete/{id}(id=${course.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

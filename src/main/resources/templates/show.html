@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Details of Course</title>
+</head>
+<body>
+    <nav th:replace="base :: nav"></nav>
+    <div>
+        <h2 th:text="${course.title}"></h2>
+        <h4>Description</h4>
+        <p th:text="${course.description}"></p>
+        <h5>Credits: </h5><span th:text="${course.credits}"></span><br/>
+        <a sec:authorize="hasAuthority('INSTRUCTOR')" th:href="@{/delete/{id}(id=${course.id})}"></a>
+    </div>
+</body>
+</html>
